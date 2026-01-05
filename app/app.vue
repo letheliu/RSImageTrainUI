@@ -7,21 +7,18 @@ useHead({
     { rel: 'icon', href: '/favicon.ico' }
   ],
   htmlAttrs: {
-    lang: 'en'
+    lang: 'zh-CN'
   }
 })
 
-const title = 'Nuxt Starter Template'
-const description = 'A production-ready starter template powered by Nuxt UI. Build beautiful, accessible, and performant applications in minutes, not hours.'
+const title = '遥影智训'
+const description = '图像判读训练平台'
 
 useSeoMeta({
   title,
   description,
   ogTitle: title,
-  ogDescription: description,
-  ogImage: 'https://ui.nuxt.com/assets/templates/nuxt/starter-light.png',
-  twitterImage: 'https://ui.nuxt.com/assets/templates/nuxt/starter-light.png',
-  twitterCard: 'summary_large_image'
+  ogDescription: description
 })
 </script>
 
@@ -29,24 +26,22 @@ useSeoMeta({
   <UApp>
     <UHeader>
       <template #left>
-        <NuxtLink to="/">
-          <AppLogo class="w-auto h-6 shrink-0" />
+        <NuxtLink
+          to="/"
+          class="flex items-center gap-2"
+        >
+          <NuxtImg
+            src="/images/logo.png"
+            alt="logo"
+            class="w-18 h-18"
+          />
+          <span class="text-2xl font-bold">{{ title }}</span>
+          <span class="text-sm text-muted">卫星影像判读训练平台</span>
         </NuxtLink>
-
-        <TemplateMenu />
       </template>
 
       <template #right>
         <UColorModeButton />
-
-        <UButton
-          to="https://github.com/nuxt-ui-templates/starter"
-          target="_blank"
-          icon="i-simple-icons-github"
-          aria-label="GitHub"
-          color="neutral"
-          variant="ghost"
-        />
       </template>
     </UHeader>
 
@@ -59,19 +54,12 @@ useSeoMeta({
     <UFooter>
       <template #left>
         <p class="text-sm text-muted">
-          Built with Nuxt UI • © {{ new Date().getFullYear() }}
+          Built with SceleTech • © {{ new Date().getFullYear() }}
         </p>
       </template>
 
       <template #right>
-        <UButton
-          to="https://github.com/nuxt-ui-templates/starter"
-          target="_blank"
-          icon="i-simple-icons-github"
-          aria-label="GitHub"
-          color="neutral"
-          variant="ghost"
-        />
+        客服联系方式：<span class="text-sm text-muted">18810000000</span>
       </template>
     </UFooter>
   </UApp>
