@@ -24,43 +24,8 @@ useSeoMeta({
 
 <template>
   <UApp>
-    <UHeader>
-      <template #left>
-        <NuxtLink
-          to="/"
-          class="flex items-center gap-2"
-        >
-          <NuxtImg
-            src="/images/logo.png"
-            alt="logo"
-            class="w-18 h-18"
-          />
-          <span class="text-2xl font-bold">{{ title }}</span>
-          <span class="text-sm text-muted">卫星影像判读训练平台</span>
-        </NuxtLink>
-      </template>
-
-      <template #right>
-        <UColorModeButton />
-      </template>
-    </UHeader>
-
-    <UMain>
+    <NuxtLayout>
       <NuxtPage />
-    </UMain>
-
-    <USeparator icon="i-simple-icons-nuxtdotjs" />
-
-    <UFooter>
-      <template #left>
-        <p class="text-sm text-muted">
-          Built with SceleTech • © {{ new Date().getFullYear() }}
-        </p>
-      </template>
-
-      <template #right>
-        客服联系方式：<span class="text-sm text-muted">18810000000</span>
-      </template>
-    </UFooter>
+    </NuxtLayout>
   </UApp>
 </template>
