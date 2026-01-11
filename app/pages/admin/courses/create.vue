@@ -203,6 +203,9 @@ const course = ref({
 const chapters = ref<Chapter[]>([])
 const submitting = ref(false)
 
+// 使用API组合函数
+const api = useApi()
+
 // 生成唯一ID
 const generateId = () => {
   return `chapter-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
@@ -277,23 +280,14 @@ const handleSubmit = async () => {
   submitting.value = true
 
   try {
-    const response = await fetch('/api/course/create', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        course: course.value,
-        chapters: chapters.value
-      })
+    const { data, error } = await api.post('/courses', {
+      course: course.value,
+      chapters: chapters.value
     })
 
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}))
-      throw new Error(errorData.message || '网络请求失败')
+    if (error) {
+      throw new Error(error)
     }
-
-    const data = await response.json()
     alert('课程创建成功！课程ID：' + data.id)
     navigateTo('/admin/courses')
   } catch (err) {

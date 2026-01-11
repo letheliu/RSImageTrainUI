@@ -86,23 +86,79 @@
                   <span>创建课程</span>
                 </NuxtLink>
               </li>
+              <li>
+                <NuxtLink
+                  to="/admin/content"
+                  class="flex items-center gap-3 px-4 py-2 rounded-lg transition-colors text-sm"
+                  :class="isActive('/admin/content') ? 'bg-gray-800 text-white' : 'text-gray-400 hover:text-white hover:bg-gray-800'"
+                >
+                  <UIcon
+                    name="heroicons:pencil-square"
+                    class="text-lg"
+                  />
+                  <span>内容管理</span>
+                </NuxtLink>
+              </li>
             </ul>
           </transition>
         </li>
 
-        <!-- 内容管理 -->
+        <!-- 训练管理 -->
         <li>
-          <NuxtLink
-            to="/admin/content"
-            class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors"
-            :class="isActive('/admin/content') ? 'bg-primary-600 text-white' : 'text-gray-300 hover:bg-gray-800'"
-          >
+          <div class="flex items-center justify-between px-4 py-3 text-gray-400 font-medium">
+            <span class="flex items-center gap-3">
+              <UIcon
+                name="heroicons:academic-cap"
+                class="text-xl"
+              />
+              训练管理
+            </span>
             <UIcon
-              name="heroicons:pencil-square"
-              class="text-xl"
+              :name="isTrainingMenuOpen ? 'heroicons:chevron-down' : 'heroicons:chevron-right'"
+              class="text-sm cursor-pointer hover:text-white transition-colors"
+              @click="isTrainingMenuOpen = !isTrainingMenuOpen"
             />
-            <span class="font-medium">内容管理</span>
-          </NuxtLink>
+          </div>
+          <transition
+            enter-active-class="transition-all duration-200"
+            leave-active-class="transition-all duration-200"
+            enter-from-class="opacity-0 -translate-y-2"
+            enter-to-class="opacity-100 translate-y-0"
+            leave-from-class="opacity-100 translate-y-0"
+            leave-to-class="opacity-0 -translate-y-2"
+          >
+            <ul
+              v-show="isTrainingMenuOpen"
+              class="ml-8 mt-1 space-y-1"
+            >
+              <li>
+                <NuxtLink
+                  to="/admin/questions"
+                  class="flex items-center gap-3 px-4 py-2 rounded-lg transition-colors text-sm"
+                  :class="isActive('/admin/questions') ? 'bg-gray-800 text-white' : 'text-gray-400 hover:text-white hover:bg-gray-800'"
+                >
+                  <UIcon
+                    name="heroicons:question-mark-circle"
+                    class="text-lg"
+                  />
+                  <span>试题管理</span>
+                </NuxtLink>
+              </li>
+              <li>
+                <NuxtLink
+                  to="/admin/exams"
+                  class="flex items-center gap-3 px-4 py-2 rounded-lg transition-colors text-sm"
+                  :class="isActive('/admin/exams') ? 'bg-gray-800 text-white' : 'text-gray-400 hover:text-white hover:bg-gray-800'"
+                >
+                  <UIcon
+                    name="heroicons:clipboard-document"
+                    class="text-lg"
+                  />
+                  <span>考卷管理</span>
+                </NuxtLink>
+              </li>
+            </ul>
+          </transition>
         </li>
 
         <!-- 用户管理 -->
@@ -178,6 +234,8 @@ const route = useRoute()
 
 // 课程管理子菜单展开状态
 const isCoursesMenuOpen = ref(true)
+// 训练管理子菜单展开状态
+const isTrainingMenuOpen = ref(false)
 
 // 判断当前路由是否激活
 const isActive = (path: string) => {
@@ -189,10 +247,13 @@ const isSubRoute = (path: string) => {
   return route.path.startsWith(path)
 }
 
-// 根据当前路由自动展开课程菜单
+// 根据当前路由自动展开菜单
 watch(() => route.path, (newPath) => {
   if (newPath.startsWith('/admin/courses')) {
     isCoursesMenuOpen.value = true
+  }
+  if (newPath.startsWith('/admin/questions') || newPath.startsWith('/admin/exams')) {
+    isTrainingMenuOpen.value = true
   }
 }, { immediate: true })
 </script>
